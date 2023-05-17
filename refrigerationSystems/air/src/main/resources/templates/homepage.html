@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Homepage</title>
+    <style>
+        body {
+            background-image:url("/images/front aaa.jpg") ;
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+
+        }
+
+        h1 {
+            color:red;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        p {
+            color: #666;
+            font-size: 16px;
+            line-height: 24px;
+            margin-bottom: 10px;
+        }
+
+        p.para3 {
+            color: black;
+            font-size: 20px;
+            line-height:30px;
+            background-color: #E6BEADFF;
+            padding:20px 20px 20px 20px;
+            border :black 3px solid;
+            border-radius :10px;
+
+        }
+
+        div {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        a {
+            color: red;
+            background-color: #E6BEADFF;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            color: black;
+            background: linear-gradient( to top right, red,yellow, blue);
+        }
+
+        .logged-in {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logged-in p {
+            margin-bottom: 0;
+        }
+
+        .logged-in a {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>WELCOME TO RWANDA REFRIGERATION SOLUTION </h1>
+
+<p class= "para3">
+
+    Proper installation, operation, and maintenance <img class="imagec" src ="/images/front%20add.jpeg">of
+    refrigeration systems are critical to ensure their performance,
+    efficiency, and safety. Regular inspections, cleaning, and lubrication
+    of system components, as well as monitoring of temperature and pressure
+    levels, can help prevent system failures and reduce energy consumption.
+    Additionally, proper disposal of refrigerants and compliance with environmental
+    regulations can help minimize the impact of refrigeration systems on the environment.</p><br>
+
+
+
+<div sec:authorize="hasRole('ROLE_ANONYMOUS')">
+    <p><a th:href="@{|/login|}" th:text="'Log in'"></a></p>
+    <p><a th:href="@{|/register|}" th:text="'Register'"></a></p>
+</div>
+
+<div class="logged-in" sec:authorize="isAuthenticated()">
+    <p>Account For: <span sec:authentication="name"></span></p>
+    <p>Position: <span sec:authentication="authorities"></span></p>
+    <div>
+        <p sec:authorize="hasAuthority('USER')"><a th:href="@{|/dashboard|}" th:text="'User Dashboard'"></a></p>
+        <p sec:authorize="hasAuthority('ADMIN')"><a th:href="@{|/admin/dashboard|}" th:text="'Admin Dashboard'"></a></p><br><br>
+        <a th:href="@{/logout}">Log out</a>
+    </div>
+</div>
+
+</body>
+</html>
